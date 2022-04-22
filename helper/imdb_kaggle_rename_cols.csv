@@ -1,0 +1,15 @@
+Series_Title,title
+Released_Year,released_year
+Certificate,certificate
+Runtime,runtime
+Genre,genre
+IMDB_Rating,imdb
+Overview,overview
+Meta_score,meta_score
+Director,director
+Star1,star1
+Star2,star2
+Star3,star3
+Star4,star4
+No_of_Votes,votes
+Gross,gross
