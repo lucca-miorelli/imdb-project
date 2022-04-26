@@ -1,6 +1,5 @@
 # Libraries
 import os
-from xml.sax.xmlreader import IncrementalParser
 import pandas as pd
 import numpy as np
 import csv
@@ -42,6 +41,9 @@ df.insert(loc=6, column="genre2", value='')
 df.insert(loc=7, column="genre3", value='')
 df[["genre1", "genre2", "genre3"]] = df.genre.str.split(",", 2, expand=True)
 df.drop(columns="genre", inplace=True)
+
+## meta_score: float -> int
+df.meta_score = df.meta_score.astype("Int64")
 
 ## gross: remove commas -> int
 df.gross = df.gross.apply(lambda x: str(x).replace(",",""))
