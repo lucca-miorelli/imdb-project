@@ -25,17 +25,17 @@ def read_data(query:str, engine):
 
 
 
-def main_function_tweets():
+def main_function_tweets(TWITTER_TOKEN, RDS_USER, RDS_PASSWORD, RDS_HOST, RDS_NAME):
     
-    credential = configparser.ConfigParser()
-    credential.read('credentials.conf')
-    client = tweepy.Client(credential['TWITTER']['TOKEN'])
+    #credential = configparser.ConfigParser()
+    #credential.read('credentials.conf')
+    client = tweepy.Client(TWITTER_TOKEN)
 
     with create_db_engine(
-        db_user=credential["RDS"]["USER"],
-        db_password=credential["RDS"]["PASSWORD"],
-        host=credential["RDS"]["HOST"],
-        db_name=credential["RDS"]["NAME"]
+        db_user=RDS_USER,
+        db_password=RDS_PASSWORD,
+        host=RDS_HOST,
+        db_name=RDS_NAME
     ) as engine:
 
         df_imdb = read_data("SELECT * FROM imdb_kaggle", engine)
