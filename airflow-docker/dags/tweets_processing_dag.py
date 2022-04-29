@@ -3,10 +3,21 @@ from airflow.models import Variable
 from airflow.operators.bash import BashOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
+import tweepy
 
 from datetime import datetime
 from get_counts_to_dataframe import *
 from get_recent_tweets_to_dataframe import *
+
+def is_api_available_function():
+    client = tweepy.Client(TWITTER_TOKEN)
+    
+    try:
+        response = client.get_user(username='joaopedroffn')
+        for key, value in dict(response.data).items():
+            print(key, ':', value)
+    except tweepy.errors.TwitterServerError:
+        raise Exception("TwitterServerError again...")
 
 default_args = {
 
@@ -30,6 +41,11 @@ with DAG(dag_id="tweets_processing_dag",
 
     # Define tasks/operators
 
+    is_api_available = PythonOperator(
+        task_id='is_api_available',
+        python_callable=is_api_available_function
+    )
+
     get_counts_per_movie = PythonOperator(
         task_id = 'get_counts_per_movie',
         python_callable = main_function_counts,
@@ -42,4 +58,4 @@ with DAG(dag_id="tweets_processing_dag",
         op_args=[TWITTER_TOKEN, RDS_USER, RDS_PASSWORD, RDS_HOST, RDS_NAME]
     )
 
-    get_counts_per_movie >> get_recent_tweets_per_movie
+    is_api_available >> get_recent_tweets_per_movie >> get_counts_per_movie
