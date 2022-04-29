@@ -64,11 +64,11 @@ def main_function_tweets(TWITTER_TOKEN, RDS_USER, RDS_PASSWORD, RDS_HOST, RDS_NA
                                     columns=['movie_id', 'movie', 'tweet_id', 'created_at'])
             df_tweets = pd.concat([df_tweets, df_temp], axis=0)
 
-        df_tweets['tweet_id'] = pd.to_numeric(df_tweets.tweet_id)
         df_tweets['created_at'] = pd.to_datetime(df_tweets.created_at)
         df_tweets.astype({
             'movie': str,
-            'movie_id': str
+            'movie_id': str,
+            'tweet_id': str
         })
 
         df_tweets.to_sql(name='tweets_per_movie',
