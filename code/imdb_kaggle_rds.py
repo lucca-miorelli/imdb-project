@@ -4,7 +4,12 @@ import os
 from contextlib import contextmanager
 import pandas as pd
 from sqlalchemy import create_engine
+import logging
+from logger import SetUpLogging
 
+# Init Logger
+
+SetUpLogging().setup_logging()
 
 # Helper function
 @contextmanager
@@ -20,7 +25,7 @@ def create_db_engine(db_user:str, db_password:str, host:str, db_name:str):
 credential = configparser.ConfigParser()
 credential.read("credentials.conf")
 
-
+logging.DEBUG("--- Sending Parquet to AWS RDS ---")
 # Send dataframe to RDS
 df = pd.read_parquet(os.path.join("data", "imdb_top_1000.parquet"))
 with create_db_engine(
