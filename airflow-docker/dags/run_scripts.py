@@ -1,7 +1,7 @@
 from get_counts_to_dataframe import *
 from get_recent_tweets_to_dataframe import *
 import configparser
-import os
+
 
 credential = configparser.ConfigParser()
 credential.read('..\..\credentials.conf')

@@ -38,10 +38,10 @@ def main_function_tweets(TWITTER_TOKEN, RDS_USER, RDS_PASSWORD, RDS_HOST, RDS_NA
         db_name=RDS_NAME
     ) as engine:
 
-        df_imdb = read_data("SELECT * FROM imdb_kaggle", engine)
+        df_imdb = read_data("SELECT * FROM imdb_kaggle LIMIT 25", engine)
         df_tweets = pd.DataFrame(columns=['movie_id', 'movie', 'tweet_id', 'created_at'])
 
-        for id, movie in enumerate(df_imdb.sort_values(by='imdb', ascending=False)['title'][0:25]):
+        for id, movie in enumerate(df_imdb.sort_values(by='imdb', ascending=False)['title']):
             
             query = "\"{}\"".format(movie.replace(":",""))
 
