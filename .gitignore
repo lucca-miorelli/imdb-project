@@ -5,3 +5,4 @@ airflow-docker/logs/**
 **/__pycache__
 airflow-docker/plugins
 airflow-docker/dag_variables.json
+brainstorm/**
