@@ -4,9 +4,16 @@ import configparser
 from sqlalchemy import create_engine
 from contextlib import contextmanager
 import numpy as np
+#import logging
+#from logger import SetUpLogging
+
+# Init Logger
+
+#SetUpLogging().setup_logging()
 
 @contextmanager
 def create_db_engine(db_user:str, db_password:str, host:str, db_name:str):
+    #logging.debug("--- Creating database ---")
     try:
         engine = create_engine(f'postgresql://{db_user}:{db_password}@{host}:5432/{db_name}', echo=False)
         yield engine
@@ -16,6 +23,7 @@ def create_db_engine(db_user:str, db_password:str, host:str, db_name:str):
 
 
 def read_data(query:str, engine):
+    #logging.debug("--- Reading from database ---")
     try:
         return pd.read_sql_query(query, engine)
     except:

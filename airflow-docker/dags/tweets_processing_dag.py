@@ -8,10 +8,16 @@ import tweepy
 from datetime import datetime
 from get_counts_to_dataframe import *
 from get_recent_tweets_to_dataframe import *
+#import logging
+#from logger import SetUpLogging
+
+# Init Logger
+
+#SetUpLogging().setup_logging()
 
 def is_api_available_function():
-    client = tweepy.Client(TWITTER_TOKEN)
-    
+    #logging.debug("---Opening twitter client ---")
+    client = tweepy.Client(TWITTER_TOKEN) 
     try:
         response = client.get_user(username='joaopedroffn')
         for key, value in dict(response.data).items():
@@ -27,6 +33,7 @@ default_args = {
 
     }
 
+#logging.debug("--- Initializing DAG Variables ---")
 dag_variables = Variable.get("dag_variables_config", deserialize_json=True)
 TWITTER_TOKEN = dag_variables['TWITTER_TOKEN']
 RDS_USER = dag_variables['RDS_USER']
@@ -40,18 +47,20 @@ with DAG(dag_id="tweets_processing_dag",
         catchup=False) as dag:
 
     # Define tasks/operators
-
+    #logging.debug("--- Checking if Twitter API is available ---")
     is_api_available = PythonOperator(
         task_id='is_api_available',
         python_callable=is_api_available_function
     )
 
+    #logging.debug("--- Getting counts per movie ---")
     get_counts_per_movie = PythonOperator(
         task_id = 'get_counts_per_movie',
         python_callable = main_function_counts,
         op_args=[TWITTER_TOKEN, RDS_USER, RDS_PASSWORD, RDS_HOST, RDS_NAME]
     )
 
+    #logging.debug("--- Getting recent tweets per movie ---")
     get_recent_tweets_per_movie = PythonOperator(
         task_id = 'get_recent_tweets_per_movie',
         python_callable = main_function_tweets,
