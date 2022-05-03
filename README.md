@@ -36,7 +36,7 @@ Alguns dos muitos aprendizados foram:
 
 1. Seu diretório deve ficar parecido com este exemplo:
 
-        ```
+     ```
     ├── ...
     ├── airflow-docker
     │   ├── dags
@@ -46,7 +46,7 @@ Alguns dos muitos aprendizados foram:
     │   ├── dag_variables.json
     │   ├── docker-compose.yaml
     ├── code
-    ├── ...    
+    ├── ...
     ```
     
     - **tweets_processing_dag.py**: é o arquivo lido pelo Airflow para orquestrar o Pipeline.
