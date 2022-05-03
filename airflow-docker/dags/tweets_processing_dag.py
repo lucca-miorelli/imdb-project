@@ -13,7 +13,7 @@ def is_api_available_function():
     client = tweepy.Client(TWITTER_TOKEN)
     
     try:
-        response = client.get_user(username='joaopedroffn')
+        response = client.get_user(username='elonmusk')
         for key, value in dict(response.data).items():
             print(key, ':', value)
     except tweepy.errors.TwitterServerError:
