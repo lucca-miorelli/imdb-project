@@ -1,4 +1,4 @@
-# Monitorando Tweets sobre os Top 1000 Filmes do IMBDb
+# Monitorando Tweets sobre os Top 1000 Filmes do IMDb
 
 ## Sobre:
 
@@ -20,24 +20,26 @@ A arquitetura do projeto é ilustrada no diagrama abaixo:
 ![imdb_diagram](https://github.com/lucca-miorelli/imdb-project/blob/main/imdb_diagram.jpg)
 
 Este projeto é resultado do desafio final da mentoria de Engenharia de Dados da Poatek, com o principal objetivo de estudar as ferramentas e aprender na prática.
-Alguns dos muitos aprendizados foram:
-* a
-* b
-* c
 
 
 ## Pré-requisitos:
 - Instalar Docker do [site oficial.](https://docs.docker.com/get-docker/)
 - Instalar Docker Compose do [site oficial.](https://docs.docker.com/compose/install/)
 - Configurar conta de desenvolvedor para[ API do Twitter.](https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJyZWRpcmVjdF9hZnRlcl9sb2dpbiI6Imh0dHBzOi8vZGV2ZWxvcGVyLnR3aXR0ZXIuY29tL2VuL3BvcnRhbC9wZXRpdGlvbi9lc3NlbnRpYWwvYmFzaWMtaW5mbyJ9%22%7D)
+- Instalar as bibliotecas que estão listadas no arquivos **requirements.txt**. Sugerimos primeiro criar um ambiente virtual para isso.
+
+```bash
+python -m venv .env
+(.env) pip install -r requirements.txt # Tenha certeza de estar com o ambiente virtual ativo.
+```
 
 
 ## Como usar este projeto?
 
 1. Seu diretório deve ficar parecido com este exemplo:
 
-        ```
-    ├── ...
+    ```
+    ├── ...  
     ├── airflow-docker
     │   ├── dags
     │   │   ├── tweets_processing_dag.py
@@ -56,15 +58,20 @@ Alguns dos muitos aprendizados foram:
 
 2. Faça download da imagem *.yaml*.
 
-    ```
+    ```bash
     curl -LfO 'https://airflow.apache.org/docs/apache-airflow/stable/docker-compose.yaml'
     ```
 
-2. Utilize os comandos do Docker para rodar ou parar o contâiner:
+3. Utilize os comandos do Docker para rodar ou parar o contâiner:
 
-    ```
+    ```bash
     docker-compose up -d    # iniciar
     docker-compose down     # parar
     ```
 
-3. Utilize a UI Web se necessário na porta padrão: [http://localhost:8080](http://localhost:8080)
+4. Utilize a UI Web se necessário na porta padrão: [http://localhost:8080](http://localhost:8080)
+
+5. Para olhar acessar o dashboard:
+    - Adapte a query dentro do arquivo **tweets_counts** dentro de *visualization* para o seu banco, seja ele local ou na nuvem.
+    - Rode o arquivo **tweets_counts**.
+    - Entre na porta padrão: [http://localhost:8050](http://localhost:8050).
