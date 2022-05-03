@@ -3,14 +3,20 @@ import os
 import pandas as pd
 import numpy as np
 import csv
+import logging
+from logger import SetUpLogging
 
+# Init Logger
 
+SetUpLogging().setup_logging()
+
+logging.debug("---Loading IMDB PATHS---")
 # Constants
 DATA_FILE       = os.path.join("data", "imdb_top_1000.csv")
 RENAME_FILE     = os.path.join("helper", "imdb_kaggle_rename_cols.csv") 
 PROCESSED_FILE  = os.path.join("data", "imdb_top_1000.parquet")
 
-
+logging.debug("---Filtering and loading IMDB data---")
 # Filter the columns to be loaded
 all_columns = pd.read_csv(DATA_FILE, nrows=0).columns
 use_cols    = np.setdiff1d(all_columns, ["Poster_Link"]) 
@@ -25,7 +31,7 @@ with open(RENAME_FILE) as file:
     rename_dict = dict(csv.reader(file))
 df.rename(columns=rename_dict, inplace=True)
 
-
+logging.debug("---Cleaning data---")
 # Cleaning
 
 ## released_year: object -> int
@@ -50,6 +56,7 @@ df.gross = df.gross.apply(lambda x: str(x).replace(",",""))
 df.gross.replace({"nan":None}, inplace=True)
 df.gross = df.gross.astype("Int64")
 
+logging.debug("---Writing to parquet---")
 
 # Save dataset
 df.to_parquet(PROCESSED_FILE)

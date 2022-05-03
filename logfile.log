@@ -1,0 +1,4 @@
+08:23:17 - {imdb_kaggle_processed.py:13} - root - DEBUG - ---Loading IMDB PATHS---
+08:23:17 - {imdb_kaggle_processed.py:19} - root - DEBUG - ---Filtering and loading IMDB data---
+08:23:17 - {imdb_kaggle_processed.py:34} - root - DEBUG - ---Cleaning data---
+08:23:17 - {imdb_kaggle_processed.py:59} - root - DEBUG - ---Writing to parquet---
