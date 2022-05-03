@@ -48,7 +48,7 @@ python -m venv .env
     │   ├── dag_variables.json
     │   ├── docker-compose.yaml
     ├── code
-    ├── ...    
+    ├── ...
     ```
     
     - **tweets_processing_dag.py**: é o arquivo lido pelo Airflow para orquestrar o Pipeline.
